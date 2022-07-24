@@ -23,12 +23,19 @@ describe('Order unit tests', () => {
 
     it('Shoud calculate total price from order items', () => {
 
-        const item1 = new OrderItem('1', 'Item Test 1', 50)
-        const item2 = new OrderItem('2', 'Item Test 2', 15)
+        const item1 = new OrderItem('1', 'p1', 3, 'Item Test 1', 50)
+        const item2 = new OrderItem('2', 'p2', 2, 'Item Test 2', 15)
 
         const order = new Order('1', '1', [item1, item2])
 
 
-        expect(order.total()).toBe(65)
+        expect(order.total()).toBe(180)
+    })
+
+    it('Shoud check if the item qtd is less or equal than zero', () => {
+
+        expect(() => {
+            const item1 = new OrderItem('1', 'p1', 0, 'Item Test 1', 50)
+        }).toThrowError('Quantity must be greater than zero')
     })
 })
