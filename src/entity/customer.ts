@@ -1,10 +1,11 @@
 import Address from './address'
 
 export default class Customer {
-    _id: string
-    _name: string
-    _address!: Address
-    _active: boolean = false
+    private _id: string
+    private _name: string
+    private _address!: Address
+    private _active: boolean = false
+    private _rewardPoints: number = 0
 
     constructor (id: string, name: string) {
         this._id = id
@@ -41,6 +42,15 @@ export default class Customer {
         return this._active
     }
 
+    earnPoints(points: number) {
+        this._rewardPoints += points
+    }
+
+    public get rewardPoints() : number {
+        return this._rewardPoints
+    }
+
+
     set Address(address: Address) {
         this._address = address
     }
@@ -48,5 +58,10 @@ export default class Customer {
     public get name() : string {
         return this._name
     }
+
+    public get id() : string {
+        return this._id
+    }
+
 
 }

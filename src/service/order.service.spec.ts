@@ -1,8 +1,27 @@
+import Customer from '../entity/customer'
 import Order from '../entity/order'
 import OrderItem from '../entity/order_item'
 import OrderService from './order.service'
 
 describe('Order service unit tests', () => {
+
+    it('Shoult place an order', () => {
+
+        const customer = new Customer('1', 'Cliente 1')
+        const item1 = new OrderItem('i1', 'p1', 1, 'Item 1', 10)
+
+        const order = OrderService.placeOrder(customer, [item1])
+
+        expect(customer.rewardPoints).toBe(5)
+        expect(order.total()).toBe(10)
+    })
+
+    it('Should throw error when items is empty', () => {
+        expect(() => {
+            const customer = new Customer('1', 'Cliente 1')
+            const order = OrderService.placeOrder(customer, [])
+        }).toThrowError('Order must have at least one item')
+    })
 
     it('Should get total of orders', () => {
         const item1 = new OrderItem('i1', 'p1', 1, 'Item 1', 50)
